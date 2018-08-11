@@ -77,7 +77,7 @@
     :hook ((after-init . dashboard-setup-startup-hook)
            (emacs-startup . toggle-frame-maximized))
     :config
-    (setq dashboard-banner-logo-title "Welcome to Centaur Emacs")
+    (setq dashboard-banner-logo-title "Welcome to Alvintang's Emacs")
     (setq dashboard-startup-banner (if centaur-logo centaur-logo 'official))
     (setq dashboard-items '((recents  . 10)
                             (bookmarks . 5)
