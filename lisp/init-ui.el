@@ -110,6 +110,10 @@
   (use-package leuven-theme
     :init (load-theme 'leuven t)))
 
+ ((eq centaur-theme 'dracula)
+  (use-package dracula-theme
+    :init (load-theme 'dracula t)))
+
  ((is-doom-theme-p centaur-theme)
   (use-package doom-themes
     :init

@@ -103,5 +103,7 @@
 ;; Restore
 (require 'init-restore)
 
+(require 'init-evil)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
