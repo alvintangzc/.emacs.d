@@ -22,7 +22,16 @@
     (use-package evil-surround
       :ensure t
       :init
-      (global-evil-surround-mode 1))))
+      (global-evil-surround-mode 1))
+    (use-package evil-escape
+      :ensure t
+      :init
+      (progn
+        (evil-escape-mode 1))
+      :config
+      (progn
+        (setq-default evil-escape-delay 0.3)
+        (setq-default evil-escape-key-sequence "kj")))))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
