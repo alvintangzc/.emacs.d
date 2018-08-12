@@ -41,6 +41,7 @@
                            (setq c-basic-offset 4)))
   :config
   ;; Company mode backend for C/C++ header files
+  (modify-syntax-entry ?_ "w")
   (use-package company-c-headers
     :after company
     :functions company-backend-with-yas

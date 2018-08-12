@@ -14,7 +14,7 @@
       (progn
         (global-evil-leader-mode)
         (setq evil-leader/in-all-states 1)
-        (evil-leader/set-leader "\\")
+        (evil-leader/set-leader "<SPC>")
         (evil-leader/set-key "ff" 'counsel-fzf)
         (evil-leader/set-key "w"  'save-buffer)
         (evil-leader/set-key "sb" 'ido-switch-buffer)
@@ -22,7 +22,8 @@
         ;; (evil-leader/set-key "jd" 'lsp-ui-peek-find-definitions)
         (evil-leader/set-key "fr" 'lsp-ui-peek-find-references)
         (evil-leader/set-key "kb" 'ido-kill-buffer)
-        (evil-leader/set-key "fl" 'counsel-imenu)))
+        (evil-leader/set-key "fl" 'counsel-imenu)
+        (evil-leader/set-key "ma" 'highlight-symbol-at-point)))
     (use-package evil-surround
       :ensure t
       :init
@@ -40,6 +41,9 @@
       (progn
         (setq-default evil-escape-delay 0.3)
         (setq-default evil-escape-key-sequence "kj")))))
+
+(with-eval-after-load 'evil
+    (defalias #'forward-evil-word #'forward-evil-symbol))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
