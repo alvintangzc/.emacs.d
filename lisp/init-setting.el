@@ -1,7 +1,8 @@
 ;; scorll 留10行
 (setq scroll-margin 10)
 ;; end
-;; 显示对齐线
+
+;; 显示对齐线 和evil有兼容问题暂时不用了
 ;; end
 
 ;; 退出不提示
