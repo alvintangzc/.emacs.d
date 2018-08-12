@@ -16,13 +16,21 @@
         (setq evil-leader/in-all-states 1)
         (evil-leader/set-leader "\\")
         (evil-leader/set-key "ff" 'counsel-fzf)
-        (evil-leader/set-key "w" 'save-buffer)
+        (evil-leader/set-key "w"  'save-buffer)
         (evil-leader/set-key "sb" 'ido-switch-buffer)
-        (evil-leader/set-key "kb" 'ido-kill-buffer)))
+        (evil-leader/set-key "ss" 'avy-goto-char-2)
+        ;; (evil-leader/set-key "jd" 'lsp-ui-peek-find-definitions)
+        (evil-leader/set-key "fr" 'lsp-ui-peek-find-references)
+        (evil-leader/set-key "kb" 'ido-kill-buffer)
+        (evil-leader/set-key "fl" 'counsel-imenu)))
     (use-package evil-surround
       :ensure t
       :init
       (global-evil-surround-mode 1))
+    (use-package evil-mc
+      :ensure t
+      :init
+      (global-evil-mc-mode 1))
     (use-package evil-escape
       :ensure t
       :init

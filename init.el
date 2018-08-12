@@ -105,5 +105,7 @@
 
 (require 'init-evil)
 
+(require 'init-setting)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
