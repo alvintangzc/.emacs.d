@@ -32,11 +32,19 @@ With prefix ARG, silently save all file-visiting buffers, then kill."
 ;; end
 
 ;; 显示空白字符
-(require 'highlight-chars)
-(add-hook 'font-lock-mode-hook 'hc-highlight-tabs)
+;(require 'highlight-chars)
+;(add-hook 'font-lock-mode-hook 'hc-highlight-tabs)
 ;; end
 
 (which-function-mode 1)
+
+;;不产生备份文件
+(setq make-backup-files nil)
+;;不生成临时文件
+(setq-default make-backup-files nil)
+;;保存时自动删除行尾空格
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 
 ;; 定义快捷键
 (defun move-x-line ()
