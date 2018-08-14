@@ -46,6 +46,12 @@ With prefix ARG, silently save all file-visiting buffers, then kill."
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
+;;关闭eldoc
+(when centaur-lsp 
+(use-package eldoc
+  :ensure nil
+  :init (global-eldoc-mode 0)))
+
 ;; 定义快捷键
 (defun move-x-line ()
   (interactive)

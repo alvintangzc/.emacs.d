@@ -94,9 +94,9 @@
 
 (require 'init-emacs-lisp)
 (require 'init-c)
-(require 'init-go)
+;(require 'init-go)
 (require 'init-python)
-(require 'init-ruby)
+;(require 'init-ruby)
 (require 'init-web)
 (require 'init-prog)
 

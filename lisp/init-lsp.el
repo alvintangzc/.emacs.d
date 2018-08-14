@@ -35,6 +35,7 @@
 (use-package lsp-mode
   :diminish lsp-mode
   :config
+  (setq lsp-enable-eldoc nil)
   (setq lsp-inhibit-message t)
 
   ;; https://emacs-china.org/t/topic/6392/2
