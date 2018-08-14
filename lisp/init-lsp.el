@@ -54,11 +54,14 @@
               ([remap xref-find-references] . lsp-ui-peek-find-references))
   :hook (lsp-mode . lsp-ui-mode))
 
+;; 两个一起开不全会很乱
 (use-package company-lsp
   :after company
   :defines company-backends
-  :functions company-backend-with-yas
-  :init (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
+  ;:functions company-backend-with-yas
+  :init 
+    ;(cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
+    (cl-pushnew 'company-lsp company-backends))
 
 ;; Go support for lsp-mode using Sourcegraph's Go Language Server
 ;; Install: go get github.com/sourcegraph/go-langserver
@@ -157,8 +160,13 @@
   :commands lsp-cquery-enable
   :hook (c-mode-common . lsp-cquery-enable)
   :config
+   (setq cquery-sem-highlight-method 'font-lock)
+
+   ;; For rainbow semantic highlighting
+   (cquery-use-default-rainbow-sem-highlight)
    (setq cquery-extra-args '("--log-file=~/.cquery/log/cq.log"))
    (setq cquery-cache-dir "~/.cquery/cquery-cache"))
+
 
 ;; Rust support for lsp-mode using the Rust Language Server.
 ;; Install: rustup component add rls-preview rust-analysis rust-src

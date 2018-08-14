@@ -14,7 +14,7 @@
 (setq centaur-theme 'dark)                     ; Color theme: default, doom, dark, light or daylight
 (setq centaur-dashboard t)                     ; Use dashboard at startup or not: t or nil
 (setq centaur-lsp t)                           ; Enable language servers or not: t or nil
-(setq centaur-company-enable-yas t)            ; Enable yasnippet for company or not: t or nil
+; (setq centaur-company-enable-yas t)            ; Enable yasnippet for company or not: t or nil
 (setq centaur-benchmark t)                     ; Enable initialization benchmark or not: t or nil
 
 ;; For Emacs devel
