@@ -46,6 +46,10 @@
     (revert-buffer t t)
     (message "LSP server restarted."))
 
+  (defun my-set-projectile-root ()
+  (when lsp--cur-workspace
+    (setq projectile-project-root (lsp--workspace-root lsp--cur-workspace))))
+  (add-hook 'lsp-before-open-hook #'my-set-projectile-root)
   (require 'lsp-imenu)
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
 
@@ -119,9 +123,9 @@
 
 ;; Javascript, Typescript and Flow support for lsp-mode
 ;; Install: npm i -g javascript-typescript-langserver
-(use-package lsp-javascript-typescript
-  :commands lsp-javascript-typescript-enable
-  :hook ((typescript-mode js2-mode) . lsp-javascript-typescript-enable))
+;(use-package lsp-javascript-typescript
+;  :commands lsp-javascript-typescript-enable
+;  :hook ((typescript-mode js2-mode) . lsp-javascript-typescript-enable))
 
 ;; CSS, LESS, and SCSS/SASS support for lsp-mode using vscode-css-languageserver-bin
 ;; Install: npm i -g vscode-css-languageserver-bin
@@ -182,6 +186,12 @@
 (use-package lsp-java
   :commands lsp-java-enable
   :hook (java-mode . lsp-java-enable))
+
+;; install npm install vue-language-server -g
+;; install lsp-vue
+(use-package lsp-vue 
+  :commands lsp-vue-enable
+  :hook ('vue-mode-hook #'lsp-vue-mmm-enable))
 
 (provide 'init-lsp)
 

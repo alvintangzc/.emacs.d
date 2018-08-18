@@ -82,38 +82,43 @@
 (use-package coffee-mode
   :config (setq coffee-tab-width 2))
 
+;; Idont use Typescript so comment this
 ;; Typescript Interactive Development Environment
-(unless centaur-lsp
-  (use-package tide
-    :diminish tide-mode
-    :defines company-backends
-    :preface
-    (defun setup-tide-mode ()
-      "Setup tide mode."
-      (interactive)
-      (tide-setup)
-      (eldoc-mode 1)
-      (tide-hl-identifier-mode 1))
-    :hook (((typescript-mode js2-mode) . setup-tide-mode)
-           (before-save . tide-format-before-save))
-    :config
-    (setq tide-format-options
-          '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions
-            t
-            :placeOpenBraceOnNewLineForFunctions
-            nil))
+;(unless centaur-lsp
+;  (use-package tide
+;    :diminish tide-mode
+;    :defines company-backends
+;    :preface
+;    (defun setup-tide-mode ()
+;      "Setup tide mode."
+;      (interactive)
+;      (tide-setup)
+;      (eldoc-mode 1)
+;      (tide-hl-identifier-mode 1))
+;    :hook (((typescript-mode js2-mode) . setup-tide-mode)
+;           (before-save . tide-format-before-save))
+;    :config
+;    (setq tide-format-options
+;          '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions
+;           t
+;           :placeOpenBraceOnNewLineForFunctions
+;           nil))
+;
+;   (with-eval-after-load 'company
+;     (cl-pushnew (company-backend-with-yas 'company-tide) company-backends))))
 
-    (with-eval-after-load 'company
-      (cl-pushnew (company-backend-with-yas 'company-tide) company-backends))))
 
 ;; Major mode for editing web templates
 (use-package web-mode
   :defines company-backends
   :mode "\\.\\(phtml\\|php|[gj]sp\\|as[cp]x\\|erb\\|djhtml\\|html?\\|hbs\\|ejs\\|jade\\|swig\\|tm?pl\\|vue\\)$"
+  :init
+    (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
+  (add-hook 'web-mode-hook 'lsp-vue-enable)
 
   ;; Complete for web,html,emmet,jade,slim modes
   (unless centaur-lsp
