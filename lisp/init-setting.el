@@ -66,6 +66,11 @@ With prefix ARG, silently save all file-visiting buffers, then kill."
 (global-set-key (kbd "C-j") 'move-x-line)
 (global-set-key (kbd "C-k") 'back-x-line)
 
+
+;; .h .cpp jump
+(add-hook 'c-mode-hook (lambda() (local-set-key (kbd "C-c o") 'ff-find-other-file)))
+(add-hook 'c++-mode-hook (lambda() (local-set-key (kbd "C-c o") 'ff-find-other-file)))
+
 ;; end
 (provide 'init-setting)
 ;;; init-setting.el ends here
