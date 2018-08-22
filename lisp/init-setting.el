@@ -42,9 +42,6 @@ With prefix ARG, silently save all file-visiting buffers, then kill."
 (setq make-backup-files nil)
 ;;不生成临时文件
 (setq-default make-backup-files nil)
-;;保存时自动删除行尾空格
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 
 ;;关闭eldoc
 (when centaur-lsp 

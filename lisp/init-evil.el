@@ -24,6 +24,12 @@
         (evil-leader/set-key "fr" 'xref-find-references)
         (evil-leader/set-key "fr" 'lsp-ui-peek-find-references)
         (evil-leader/set-key "kb" 'ido-kill-buffer)
+        ;; highlight
+        (evil-leader/set-key "mk" 'symbol-overlay-put)
+        (evil-leader/set-key "mn" 'symbol-overlay-jump-next)
+        (evil-leader/set-key "nm" 'symbol-overlay-jump-prev)
+        (evil-leader/set-key "mc" 'symbol-overlay-remove-all)
+        ;; highlight end
         (evil-leader/set-key "fl" 'counsel-imenu)
         (evil-leader/set-key "ma" 'highlight-symbol-at-point)))
     (use-package evil-surround

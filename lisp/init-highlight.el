@@ -37,11 +37,9 @@
 
 ;; Highlight symbols
 (use-package symbol-overlay
+  :ensure t
   :diminish symbol-overlay-mode
-  :bind (("M-i" . symbol-overlay-put)
-         ("M-n" . symbol-overlay-jump-next)
-         ("M-p" . symbol-overlay-jump-prev)
-         ("M-N" . symbol-overlay-switch-forward)
+  :bind (("M-N" . symbol-overlay-switch-forward)
          ("M-P" . symbol-overlay-switch-backward)
          ("M-C" . symbol-overlay-remove-all)
          ([M-f3] . symbol-overlay-remove-all))
@@ -133,7 +131,8 @@
   ;; only show bad whitespace
   (setq whitespace-style '(face
                            trailing space-before-tab
-                           indentation empty space-after-tab))
+                           ;indentation empty space-after-tab))
+                           empty space-after-tab))
 
   (with-eval-after-load 'popup
     ;; advice for whitespace-mode conflict with popup

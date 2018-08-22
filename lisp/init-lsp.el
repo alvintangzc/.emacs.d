@@ -169,8 +169,8 @@
 
    ;; For rainbow semantic highlighting
    (cquery-use-default-rainbow-sem-highlight)
-   (setq cquery-extra-args '("--log-file=~/.cquery/log/cq.log"))
-   (setq cquery-cache-dir "~/.cquery/cquery-cache"))
+   (setq cquery-extra-args '("--log-file=~/.cache/log/cq.log"))
+   (setq cquery-cache-dir "~/.cache/cquery-cache"))
 
 
 ;; Rust support for lsp-mode using the Rust Language Server.
