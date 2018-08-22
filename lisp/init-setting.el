@@ -44,10 +44,10 @@ With prefix ARG, silently save all file-visiting buffers, then kill."
 (setq-default make-backup-files nil)
 
 ;;关闭eldoc
-(when centaur-lsp 
-(use-package eldoc
-  :ensure nil
-  :init (global-eldoc-mode 0)))
+;(when centaur-lsp 
+;(use-package eldoc
+;  :ensure nil
+;  :init (global-eldoc-mode 0)))
 
 ;; 定义快捷键
 (defun move-x-line ()

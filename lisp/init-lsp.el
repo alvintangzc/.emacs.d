@@ -35,7 +35,6 @@
 (use-package lsp-mode
   :diminish lsp-mode
   :config
-  (setq lsp-enable-eldoc nil)
   (setq lsp-inhibit-message t)
 
   ;; https://emacs-china.org/t/topic/6392/2
@@ -54,6 +53,9 @@
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu))
 
 (use-package lsp-ui
+  :init
+    (setq lsp-ui-sideline-enable nil)
+    (setq lsp-ui-doc-enable nil)
   :bind (:map lsp-ui-mode-map
               ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
               ([remap xref-find-references] . lsp-ui-peek-find-references))
