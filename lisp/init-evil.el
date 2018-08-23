@@ -15,7 +15,7 @@
         (global-evil-leader-mode)
         (setq evil-leader/in-all-states 1)
         (evil-leader/set-leader "<SPC>")
-        (evil-leader/set-key "ff" 'project-find-file)
+        (evil-leader/set-key "ff" 'projectile-find-file)
         (evil-leader/set-key "fz" 'counsel-fzf)
         (evil-leader/set-key "w"  'save-buffer)
         (evil-leader/set-key "sb" 'ido-switch-buffer)
