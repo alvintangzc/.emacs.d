@@ -68,6 +68,12 @@ With prefix ARG, silently save all file-visiting buffers, then kill."
 (add-hook 'c-mode-hook (lambda() (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 (add-hook 'c++-mode-hook (lambda() (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
+(global-unset-key (kbd "C-SPC"))
+(global-set-key (kbd "M-SPC") 'set-mark-command)
+
+;; use c style comment
+(add-hook 'c-mode-hook (lambda () (c-toggle-comment-style -1)))
+
 ;; end
 (provide 'init-setting)
 ;;; init-setting.el ends here
