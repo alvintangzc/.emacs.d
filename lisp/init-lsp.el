@@ -62,14 +62,14 @@
               ([remap xref-find-references] . lsp-ui-peek-find-references))
   :hook (lsp-mode . lsp-ui-mode))
 
-;; 两个一起开不全会很乱
+;; 两个一起开补全会很乱
 (use-package company-lsp
   :after company
   :defines company-backends
   ;:functions company-backend-with-yas
   :init 
-    ;(cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
-    (cl-pushnew 'company-lsp company-backends))
+    (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
+    ;(cl-pushnew 'company-lsp company-backends))
 
 ;; Go support for lsp-mode using Sourcegraph's Go Language Server
 ;; Install: go get github.com/sourcegraph/go-langserver
