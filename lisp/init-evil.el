@@ -31,6 +31,7 @@
         (evil-leader/set-key "nm" 'symbol-overlay-jump-prev)
         (evil-leader/set-key "mc" 'symbol-overlay-remove-all)
         ;; highlight end
+        (evil-leader/set-key "sw" 'ace-swap-window)
         (evil-leader/set-key "fl" 'counsel-imenu)
         (evil-leader/set-key "ma" 'highlight-symbol-at-point)))
     (use-package evil-surround
