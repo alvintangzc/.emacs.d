@@ -36,12 +36,14 @@
   :diminish lsp-mode
   :config
   (setq lsp-inhibit-message t)
+  (setq lsp-message-project-root-warning t)
 
-  ;; https://emacs-china.org/t/topic/6392/2
+  ;; Restart server/workspace in case the lsp server exits unexpectedly.
+  ;; https://emacs-china.org/t/topic/6392
   (defun restart-lsp-server ()
     "Restart LSP server."
     (interactive)
-    (setq lsp--workspaces (make-hash-table :test #'equal))
+    (lsp-restart-workspace)
     (revert-buffer t t)
     (message "LSP server restarted."))
 
@@ -60,22 +62,21 @@
   :bind (:map lsp-ui-mode-map
               ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
               ([remap xref-find-references] . lsp-ui-peek-find-references))
-  :hook (lsp-mode . lsp-ui-mode))
+  :hook (lsp-mode . lsp-ui-mode)
+  :init (setq scroll-margin 0))
 
-;; 两个一起开补全会很乱
 (use-package company-lsp
   :after company
   :defines company-backends
-  ;:functions company-backend-with-yas
-  :init 
-    (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
-    ;(cl-pushnew 'company-lsp company-backends))
+  :functions company-backend-with-yas
+  :init (cl-pushnew (company-backend-with-yas 'company-lsp) company-backends))
 
 ;; Go support for lsp-mode using Sourcegraph's Go Language Server
-;; Install: go get github.com/sourcegraph/go-langserver
+;; Install: go get -u github.com/sourcegraph/go-langserver
 (use-package lsp-go
   :commands lsp-go-enable
-  :hook (go-mode . lsp-go-enable))
+  :hook (go-mode . lsp-go-enable)
+  :config (setq lsp-go-gocode-completion-enabled t))
 
 ;; Python support for lsp-mode using pyls.
 ;; Install: pip install python-language-server
@@ -130,9 +131,9 @@
 
 ;; Javascript, Typescript and Flow support for lsp-mode
 ;; Install: npm i -g javascript-typescript-langserver
-;(use-package lsp-javascript-typescript
-;  :commands lsp-javascript-typescript-enable
-;  :hook ((typescript-mode js2-mode) . lsp-javascript-typescript-enable))
+(use-package lsp-javascript-typescript
+  :commands lsp-javascript-typescript-enable
+  :hook ((typescript-mode js2-mode) . lsp-javascript-typescript-enable))
 
 ;; CSS, LESS, and SCSS/SASS support for lsp-mode using vscode-css-languageserver-bin
 ;; Install: npm i -g vscode-css-languageserver-bin
@@ -169,9 +170,15 @@
 ;; C/C++/Objective-C language server support for lsp-mode using clang
 ;; Install: brew install cquery or see https://github.com/cquery-project/cquery/releases
 (use-package cquery
+  :defines projectile-project-root-files-top-down-recurring
   :commands lsp-cquery-enable
-  :hook (c-mode-common . lsp-cquery-enable)
+  :hook ((c-mode c++-mode objc-mode) . lsp-cquery-enable)
   :config
+  (with-eval-after-load 'projectile
+    (setq projectile-project-root-files-top-down-recurring
+          (append '("compile_commands.json"
+                    ".cquery")
+                  projectile-project-root-files-top-down-recurring)))
    (setq cquery-sem-highlight-method 'font-lock)
 
    ;; For rainbow semantic highlighting

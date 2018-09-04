@@ -59,7 +59,8 @@
 ;; Dashboard
 (when centaur-dashboard
   (use-package dashboard
-    :diminish dashboard-mode page-break-lines-mode
+    :diminish (dashboard-mode page-break-lines-mode)
+    :functions (dashboard-insert-startupify-lists widget-forward)
     :bind (("<f2>" . (lambda ()
                        "Open the *dashboard* buffer and jump to the first widget."
                        (interactive)
@@ -76,6 +77,7 @@
            ("U" . update-centaur))
     :hook ((after-init . dashboard-setup-startup-hook)
            (emacs-startup . toggle-frame-maximized))
+    :init (setq inhibit-startup-screen t)
     :config
     (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
     (setq dashboard-banner-logo-title "Welcome to Alvintang's Emacs")
@@ -84,7 +86,7 @@
                             (bookmarks . 5)
                             (projects . 5)))
 
-    (defun dashboard-insert-buttons (list-size)
+    (defun dashboard-insert-buttons (_list-size)
       (insert "\n")
       (insert (make-string (max 0 (floor (/ (- dashboard-banner-length 51) 2))) ?\ ))
       (widget-create 'url-link
@@ -95,7 +97,7 @@
       (insert " ")
       (widget-create 'push-button
                      :help-echo "Restore previous session"
-                     :action (lambda (&rest ignore) (desktop-save-mode 1) (desktop-read))
+                     :action (lambda () (desktop-save-mode 1) (desktop-read))
                      :mouse-face 'highlight
                      :button-prefix ""
                      :button-suffix ""
@@ -103,7 +105,7 @@
       (insert " ")
       (widget-create 'push-button
                      :help-echo "Edit Personal Configurations"
-                     :action (lambda (&rest ignore) (open-custom-file))
+                     :action (lambda () (open-custom-file))
                      :mouse-face 'highlight
                      :button-prefix ""
                      :button-suffix ""
@@ -111,7 +113,7 @@
       (insert " ")
       (widget-create 'push-button
                      :help-echo "Update Centaur Emacs config and packages"
-                     :action (lambda (&rest ignore) (update-centaur))
+                     :action (lambda () (update-centaur))
                      :mouse-face 'highlight
                      (propertize "Update" 'face 'font-lock-keyword-face))
       (insert "\n")
@@ -120,6 +122,11 @@
 
     (add-to-list 'dashboard-item-generators  '(buttons . dashboard-insert-buttons))
     (add-to-list 'dashboard-items '(buttons))))
+
+;; Load personal configurations
+(let ((file (expand-file-name "custom-post.el" user-emacs-directory)))
+  (if (file-exists-p file)
+      (load file)))
 
 (provide 'init-restore)
 

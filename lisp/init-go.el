@@ -38,7 +38,6 @@
 ;; Go packages:
 ;; go get -u github.com/nsf/gocode
 ;; go get -u github.com/rogpeppe/godef
-;; go get -u github.com/golang/lint/golint
 ;; go get -u golang.org/x/tools/cmd/goimports
 ;; go get -u golang.org/x/tools/cmd/guru
 ;; go get -u golang.org/x/tools/cmd/gorename
@@ -55,14 +54,10 @@
               ("C-c R" . go-remove-unused-imports)
               ("<f1>" . godoc-at-point))
   :config
-  ;; `goimports' or `gofmt'
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook #'gofmt-before-save)
-
   (use-package go-dlv)
   (use-package go-fill-struct)
   (use-package go-impl)
-  (use-package go-playground)
+  (use-package go-rename)
   (use-package golint)
   (use-package govet)
 
@@ -83,16 +78,21 @@
     :bind (:map go-mode-map
                 ("C-c C-g" . go-gen-test-dwim)))
 
-  ;; Run: M-x `go-projectile-install-tools'
-  (use-package go-projectile
-    :after projectile
-    :commands (go-projectile-mode go-projectile-switch-project)
-    :hook ((go-mode . go-projectile-mode)
-           (projectile-after-switch-project . go-projectile-switch-project)))
-
   ;; LSP provides the functionalities.
   ;; NOTE: `go-langserver' doesn't support Windows so far.
   (unless centaur-lsp
+    ;; `goimports' or `gofmt'
+    (setq gofmt-command "goimports")
+    (add-hook 'before-save-hook #'gofmt-before-save)
+
+    ;; Go add-ons for Projectile
+    ;; Run: M-x `go-projectile-install-tools'
+    (with-eval-after-load 'projectile
+      (use-package go-projectile
+        :commands (go-projectile-mode go-projectile-switch-project)
+        :hook ((go-mode . go-projectile-mode)
+               (projectile-after-switch-project . go-projectile-switch-project))))
+
     (use-package go-eldoc
       :hook (go-mode . go-eldoc-setup))
 
@@ -101,10 +101,16 @@
                   ;; ([remap xref-find-definitions] . go-guru-definition)
                   ([remap xref-find-references] . go-guru-referrers)))
 
-    (use-package company-go
-      :after company
-      :functions company-backend-with-yas
-      :init (cl-pushnew (company-backend-with-yas 'company-go) company-backends))))
+    (with-eval-after-load 'company
+      (use-package company-go
+        :defines company-backends
+        :functions company-backend-with-yas
+        :init (cl-pushnew (company-backend-with-yas 'company-go) company-backends)))))
+
+;; Local Golang playground for short snippes
+(use-package go-playground
+  :diminish go-playground-mode
+  :commands go-playground-mode)
 
 (provide 'init-go)
 

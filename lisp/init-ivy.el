@@ -156,9 +156,9 @@
   ;; More friendly display transformer for Ivy
   (use-package ivy-rich
     :init (ivy-rich-mode 1)
-    :config
-    (setq ivy-virtual-abbreviate 'full
-          ivy-rich-path-style 'abbrev))
+    :hook (ivy-rich-mode . (lambda ()
+                             (setq ivy-virtual-abbreviate
+                                   (or (and ivy-rich-mode 'abbreviate) 'name)))))
 
   ;; Select from xref candidates with Ivy
   (use-package ivy-xref
@@ -172,7 +172,6 @@
 
   ;; Ivy integration for Projectile
   (use-package counsel-projectile
-    :disabled
     :init (counsel-projectile-mode 1))
 
   ;; Stylesheet-selector-aware swiper
@@ -190,17 +189,6 @@
   (use-package counsel-tramp
     :bind (:map counsel-mode-map
                 ("C-c c v" . counsel-tramp)))
-
-  ;; Ivy for GNU global
-  (use-package counsel-gtags
-    :diminish counsel-gtags-mode
-    :bind (:map counsel-gtags-mode-map
-                ("M-." . counsel-gtags-find-definition)
-                ("M-r" . counsel-gtags-find-reference)
-                ("M-s" . counsel-gtags-find-symbol)
-                ("M-," . counsel-gtags-go-backward))
-    :hook ((c-mode c++-mode) . counsel-gtags-mode)
-    :config (setq counsel-gtags-auto-update t))
 
   ;; Improve `counsel-ag', also impact `counsel-rg', `counsel-pt'.
   ;; search the selection or current symbol by default

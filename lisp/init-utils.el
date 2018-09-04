@@ -51,7 +51,7 @@
   ;; Enable Chinese word segmentation support (支持中文分词)
   (setq youdao-dictionary-use-chinese-word-segmentation t))
 
-;; Search tools: `wgrep', `ag', `rg' and `pt'
+;; Search tools: `wgrep', `ag' and `rg'
 (use-package wgrep
   :init
   (setq wgrep-auto-save-buffer t)
@@ -61,21 +61,13 @@
   :defines projectile-command-map
   :init
   (with-eval-after-load 'projectile
-    (bind-key "s s" #'ag-project projectile-command-map))
+    (bind-key "s S" #'ag-project projectile-command-map))
   :config
   (setq ag-highlight-search t)
   (setq ag-reuse-buffers t)
   (use-package wgrep-ag))
 
-(use-package pt
-  :init
-  (with-eval-after-load 'projectile
-    (bind-key "s p" #'projectile-pt projectile-command-map))
-  :config (use-package wgrep-pt))
-
 (use-package rg
-  :if (fboundp 'wgrep-ag-setup)
-  :defines counsel-projectile-command-map
   :hook (after-init . rg-enable-default-bindings)
   :config
   (setq rg-group-result t)
@@ -87,21 +79,18 @@
     :hook (rg-mode . wgrep-ag-setup))
 
   (with-eval-after-load 'projectile
-    (bind-key "s r" #'rg-project projectile-command-map))
+    (defalias 'projectile-ripgrep 'rg-project)
+    (bind-key "s R" #'rg-project projectile-command-map))
 
   (when (fboundp 'ag)
     (bind-key "a" #'ag rg-global-map))
-  (when (fboundp 'pt-regexp)
-    (bind-key "P" #'pt-regexp rg-global-map))
 
   (with-eval-after-load 'counsel
-    (bind-key "c r" #'counsel-rg rg-global-map)
-    (bind-key "c s" #'counsel-ag rg-global-map)
-    (bind-key "c p" #'counsel-pt rg-global-map)
-    (bind-key "c f" #'counsel-fzf rg-global-map))
-
-  (with-eval-after-load 'counsel-projectile
-    (bind-key "s r" #'rg-project counsel-projectile-command-map)))
+    (bind-keys :map rg-global-map
+               ("c r" . counsel-rg)
+               ("c s" . counsel-ag)
+               ("c p" . counsel-pt)
+               ("c f" . counsel-fzf))))
 
 ;; Edit text for browsers with GhostText or AtomicChrome extension
 (use-package atomic-chrome
