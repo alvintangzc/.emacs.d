@@ -81,7 +81,11 @@
 ;; Install: pip install python-language-server
 (use-package lsp-python
   :commands lsp-python-enable
-  :hook (python-mode . lsp-python-enable))
+  :hook (python-mode . lsp-python-enable)
+  :config
+  (lsp-define-stdio-client lsp-python "python"
+                           #'projectile-project-root
+                           '("pyls")))
 
 ;; Ruby support for lsp-mode using the solargraph gem.
 ;; Install: gem install solargraph
