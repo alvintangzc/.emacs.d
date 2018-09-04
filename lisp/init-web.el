@@ -57,6 +57,7 @@
 
 ;; Improved JavaScript editing mode
 (use-package js2-mode
+  :defines flycheck-javascript-eslint-executable
   :mode (("\\.js\\'" . js2-mode)
          ("\\.jsx\\'" . js2-jsx-mode))
   :interpreter (("node" . js2-mode)
@@ -65,9 +66,14 @@
          (js2-mode . js2-highlight-unused-variables-mode))
   :config
   (with-eval-after-load 'flycheck
-    (if (or (executable-find "eslint")
+    (if (or (executable-find "eslint_d")
+            (executable-find "eslint")
             (executable-find "jshint"))
-        (setq js2-mode-show-strict-warnings nil)))
+        (setq js2-mode-show-strict-warnings nil))
+    (if (executable-find "eslint_d")
+        ;; https://github.com/mantoni/eslint_d.js
+        ;; npm -i -g eslint_d
+        (setq flycheck-javascript-eslint-executable "eslint_d")))
 
   (use-package js2-refactor
     :diminish js2-refactor-mode
@@ -82,30 +88,30 @@
 (use-package coffee-mode
   :config (setq coffee-tab-width 2))
 
-;; Idont use Typescript so comment this
 ;; Typescript Interactive Development Environment
-;(unless centaur-lsp
-;  (use-package tide
-;    :diminish tide-mode
-;    :defines company-backends
-;    :preface
-;    (defun setup-tide-mode ()
-;      "Setup tide mode."
-;      (interactive)
-;      (tide-setup)
-;      (eldoc-mode 1)
-;      (tide-hl-identifier-mode 1))
-;    :hook (((typescript-mode js2-mode) . setup-tide-mode)
-;           (before-save . tide-format-before-save))
-;    :config
-;    (setq tide-format-options
-;          '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions
-;           t
-;           :placeOpenBraceOnNewLineForFunctions
-;           nil))
-;
-;   (with-eval-after-load 'company
-;     (cl-pushnew (company-backend-with-yas 'company-tide) company-backends))))
+(unless centaur-lsp
+  (use-package tide
+    :diminish tide-mode
+    :defines (company-backends tide-format-options)
+    :functions (tide-setup tide-hl-identifier-mode)
+    :preface
+    (defun setup-tide-mode ()
+      "Setup tide mode."
+      (interactive)
+      (tide-setup)
+      (eldoc-mode 1)
+      (tide-hl-identifier-mode 1))
+    :hook (((typescript-mode js2-mode) . setup-tide-mode)
+           (before-save . tide-format-before-save))
+    :config
+    (setq tide-format-options
+          '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions
+            t
+            :placeOpenBraceOnNewLineForFunctions
+            nil))
+
+    (with-eval-after-load 'company
+      (cl-pushnew (company-backend-with-yas 'company-tide) company-backends))))
 
 
 ;; Major mode for editing web templates

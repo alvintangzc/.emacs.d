@@ -72,7 +72,7 @@
   "Use dashboard at startup or not. If Non-nil, use dashboard, otherwise will restore previous session."
   :type 'boolean)
 
-(defcustom centaur-lsp nil
+(defcustom centaur-lsp t
   "Enable language servers or not."
   :type 'boolean)
 
@@ -85,7 +85,13 @@
   :type 'boolean)
 
 ;; Load `custome.el' file
+;; If it doesn't exist, copy from the template, then load it.
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(let ((custom-template-file (expand-file-name "custom-template.el" user-emacs-directory)))
+  (if (and (file-exists-p custom-template-file) (not (file-exists-p custom-file)))
+      (copy-file custom-template-file custom-file)))
+
 (if (file-exists-p custom-file)
     (load custom-file))
 
