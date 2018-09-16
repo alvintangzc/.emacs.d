@@ -11,7 +11,7 @@
 (setq centaur-mail-address "11826964@qq.com")   ; Email address
 ;; (setq centaur-proxy "127.0.0.1:1080")          ; Network proxy
 (setq centaur-package-archives 'emacs-china)  ; Package repo: melpa, melpa-mirror, emacs-china or tuna
-(setq centaur-theme 'dark)                     ; Color theme: default, doom, dark, light or daylight
+(setq centaur-theme 'default)                     ; Color theme: default, doom, dark, light or daylight
 (setq centaur-dashboard t)                     ; Use dashboard at startup or not: t or nil
 (setq centaur-lsp t)                           ; Enable language servers or not: t or nil
 ; (setq centaur-company-enable-yas t)            ; Enable yasnippet for company or not: t or nil

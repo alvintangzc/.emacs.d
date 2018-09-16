@@ -25,6 +25,8 @@
         (evil-leader/set-key "fr" 'xref-find-references)
         (evil-leader/set-key "fr" 'lsp-ui-peek-find-references)
         (evil-leader/set-key "kb" 'ido-kill-buffer)
+		; paste mode
+        (evil-leader/set-key "pm" 'display-line-numbers-mode)
         ;; highlight
         (evil-leader/set-key "mk" 'symbol-overlay-put)
         (evil-leader/set-key "mn" 'symbol-overlay-jump-next)
@@ -46,23 +48,23 @@
     (use-package evil-goggles
       :ensure t
       :init
-        (evil-goggles-mode)
+      (evil-goggles-mode)
       :config
-        (setq evil-goggles-duration 1)
-        (setq evil-goggles-blocking-duration 0.100)
-        (setq evil-goggles-async-duration 0.900)
-        ;; optionally use diff-mode's faces; as a result, deleted text
-        ;; will be highlighed with `diff-removed` face which is typically
-        ;; some red color (as defined by the color theme)
-        ;; other faces such as `diff-added` will be used for other actions
-        (evil-goggles-use-diff-faces))
+      (setq evil-goggles-duration 1)
+      (setq evil-goggles-blocking-duration 0.100)
+      (setq evil-goggles-async-duration 0.900)
+      ;; optionally use diff-mode's faces; as a result, deleted text
+      ;; will be highlighed with `diff-removed` face which is typically
+      ;; some red color (as defined by the color theme)
+      ;; other faces such as `diff-added` will be used for other actions
+      (evil-goggles-use-diff-faces))
 
     (use-package evil-lion
       :ensure t
       :init
-          (setq evil-lion-left-align-key (kbd "g a"))
-          (setq evil-lion-right-align-key (kbd "g A"))
-          (evil-lion-mode t))
+      (setq evil-lion-left-align-key (kbd "g a"))
+      (setq evil-lion-right-align-key (kbd "g A"))
+      (evil-lion-mode t))
 
     (use-package evil-escape
       :ensure t

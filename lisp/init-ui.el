@@ -100,8 +100,9 @@
 ;; Color theme
 (cond
  ((eq centaur-theme 'default)
-  (use-package monokai-theme
-    :init (load-theme 'monokai t)))
+  (use-package zenburn-theme
+    ;:init (load-theme 'monokai t)))
+    :init (load-theme 'zenburn t)))
 
  ((eq centaur-theme 'dark)
   (use-package spacemacs-theme
@@ -181,7 +182,7 @@
 ;; Line and Column
 (setq-default fill-column 80)
 (setq column-number-mode t)
-(setq line-number-mode t)
+(setq line-number-mode nil)
 
 ;; Show native line numbers if possible, otherwise use linum
 (if (fboundp 'display-line-numbers-mode)
