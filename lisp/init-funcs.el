@@ -31,7 +31,6 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'socks)
   (require 'init-const)
   (require 'init-custom))
 
@@ -90,14 +89,14 @@
   "Update confgiurations and packages."
   (interactive)
   (update-config)
-  (upgrade-packages))
+  (upgrade-packages nil))
 
 (declare-function upgrade-packages-and-restart 'init-package)
 (defun update-centaur-and-restart ()
   "Update configurations and packages, then restart."
   (interactive)
   (update-config)
-  (upgrade-packages-and-restart))
+  (upgrade-packages-and-restart nil))
 
 (defun update-dotfiles ()
   "Update the dotfiles to the latest version."

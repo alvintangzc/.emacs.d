@@ -149,6 +149,7 @@
     (diminish 'skewer-html-mode)))
 
 ;; Format HTML, CSS and JavaScript/JSON by js-beautify
+;; Insta;; npm -g install js-beautify
 (use-package web-beautify
   :init
   (with-eval-after-load 'js-mode

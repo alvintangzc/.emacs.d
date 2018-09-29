@@ -29,25 +29,25 @@
 ;;
 
 ;;; Code:
-
-(eval-when-compile
-  (require 'init-custom))
-
-;; Golang
 ;;
 ;; Go packages:
-;; go get -u github.com/nsf/gocode
+;; go get -u github.com/mdempsky/gocode # github.com/nsf/gocode
 ;; go get -u github.com/rogpeppe/godef
 ;; go get -u golang.org/x/tools/cmd/goimports
 ;; go get -u golang.org/x/tools/cmd/guru
 ;; go get -u golang.org/x/tools/cmd/gorename
+;; go get -u golang.org/x/tools/cmd/gotype
 ;; go get -u golang.org/x/tools/cmd/godoc
 ;; go get -u github.com/derekparker/delve/cmd/dlv
 ;; go get -u github.com/josharian/impl
 ;; go get -u github.com/cweill/gotests/...
 ;; go get -u github.com/fatih/gomodifytags
 ;; go get -u github.com/davidrjenni/reftools/cmd/fillstruct
-;;
+
+(eval-when-compile
+  (require 'init-custom))
+
+;; Golang
 (use-package go-mode
   :bind (:map go-mode-map
               ([remap xref-find-definitions] . godef-jump)
@@ -76,7 +76,7 @@
 
   (use-package go-gen-test
     :bind (:map go-mode-map
-                ("C-c C-g" . go-gen-test-dwim)))
+                ("C-c C-t" . go-gen-test-dwim)))
 
   ;; LSP provides the functionalities.
   ;; NOTE: `go-langserver' doesn't support Windows so far.

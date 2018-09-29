@@ -59,6 +59,7 @@
            (compilation-filter . inf-ruby-auto-enter)))
 
   ;; Rubocop
+  ;; Install: gem install rubocop
   (use-package rubocop
     :diminish rubocop-mode
     :hook (ruby-mode . rubocop-mode))

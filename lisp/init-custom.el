@@ -56,6 +56,7 @@
           (const :tag "Melpa" melpa)
           (const :tag "Melpa Mirror" melpa-mirror)
           (const :tag "Emacs-China" emacs-china)
+          (const :tag "Netease" netease)
           (const :tag "Tuna" tuna)))
 
 (defcustom centaur-theme 'default
@@ -72,9 +73,12 @@
   "Use dashboard at startup or not. If Non-nil, use dashboard, otherwise will restore previous session."
   :type 'boolean)
 
-(defcustom centaur-lsp t
-  "Enable language servers or not."
-  :type 'boolean)
+(defcustom centaur-lsp 'lsp-mode
+  "Set language server."
+  :type '(choice
+          (const :tag "LSP Mode" 'lsp-mode)
+          (const :tag "eglot" 'eglot)
+          nil))
 
 (defcustom centaur-company-enable-yas nil
   "Enable yasnippet for company backends or not."

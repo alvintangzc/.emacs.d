@@ -34,12 +34,12 @@
 (use-package hl-line
   :ensure nil
   :hook (after-init . global-hl-line-mode)
-  :config (set-face-background 'hl-line "#3e4446"))
+  :config (set-face-background 'hl-line "#3e4446")) ;my
 
 ;; Highlight symbols
 (use-package symbol-overlay
-  :ensure t
-  :diminish symbol-overlay-mode
+  :ensure t    ;my
+  :diminish symbol-overlay-mode   ;my
   :bind (("M-i" . symbol-overlay-put)
          ("M-n" . symbol-overlay-jump-next)
          ("M-p" . symbol-overlay-jump-prev)
@@ -60,6 +60,7 @@
 ;; Highlight indentions
 (when (display-graphic-p)
   (use-package highlight-indent-guides
+    :diminish
     :hook (prog-mode . highlight-indent-guides-mode)
     :config
     (setq highlight-indent-guides-method 'character)
@@ -67,7 +68,7 @@
 
 ;; Colorize color names in buffers
 (use-package rainbow-mode
-  :diminish rainbow-mode
+  :diminish
   :hook ((emacs-lisp-mode web-mode css-mode) . rainbow-mode))
 
 ;; Highlight brackets according to their depth
@@ -91,9 +92,6 @@
 (use-package diff-hl
   :defines desktop-minor-mode-table
   :commands diff-hl-magit-post-refresh
-  :custom ((diff-hl-draw-borders nil)
-           (fringes-outside-margins t)
-           (fringe-mode '(4 . 8)))
   :custom-face
   (diff-hl-change ((t (:background "DeepSkyBlue"))))
   (diff-hl-delete ((t (:background "OrangeRed"))))
@@ -105,6 +103,11 @@
   :config
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
+
+  ;; Set fringe style
+  (setq diff-hl-draw-borders nil)
+  (setq fringes-outside-margins t)
+  (set-fringe-mode '(4 . 8))
 
   (unless (display-graphic-p)
     ;; Fall back to the display margin since the fringe is unavailable in tty
@@ -120,13 +123,13 @@
 
 ;; Highlight some operations
 (use-package volatile-highlights
-  :diminish volatile-highlights-mode
+  :diminish
   :hook (after-init . volatile-highlights-mode))
 
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 (use-package whitespace
   :ensure nil
-  :diminish whitespace-mode
+  :diminish
   :hook ((prog-mode outline-mode conf-mode) . whitespace-mode)
   :config
   (setq whitespace-line-column fill-column) ;; limit line length
@@ -136,7 +139,7 @@
   (setq whitespace-style '(face
                            trailing space-before-tab
                            ;indentation empty space-after-tab))
-                           empty space-after-tab))
+                           empty space-after-tab))  ;my
 
   (with-eval-after-load 'popup
     ;; advice for whitespace-mode conflict with popup

@@ -47,13 +47,12 @@
 ;;
 ;; ELPA: refer to https://github.com/melpa/melpa and https://elpa.emacs-china.org/.
 ;;
-(defvar-local package-archives-list '(melpa melpa-mirror emacs-china tuna))
 (defun set-package-archives (archives)
   "Switch to specific package ARCHIVES repository."
   (interactive
    (list
     (intern (completing-read "Switch to archives: "
-                             package-archives-list))))
+                             '(melpa melpa-mirror emacs-china netease tuna)))))
 
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                       (not (gnutls-available-p))))
@@ -68,6 +67,9 @@
      ((eq archives 'emacs-china)
       (setq package-archives `(,(cons "gnu"   (concat proto "://elpa.emacs-china.org/gnu/"))
                                ,(cons "melpa" (concat proto "://elpa.emacs-china.org/melpa/")))))
+     ((eq archives 'netease)
+      (setq package-archives `(,(cons "gnu"   (concat proto "://mirrors.163.com/elpa/gnu/"))
+                               ,(cons "melpa" (concat proto "://mirrors.163.com/elpa/melpa/")))))
      ((eq archives 'tuna)
       (setq package-archives `(,(cons "gnu"   (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/"))
                                ,(cons "melpa" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))))
@@ -79,8 +81,9 @@
 (set-package-archives centaur-package-archives)
 
 ;; Initialize packages
-(setq package-enable-at-startup nil)    ; To prevent initialising twice
-(package-initialize)
+(setq package-enable-at-startup nil)    ; To prevent initializing twice
+(unless (bound-and-true-p package--initialized) ; Avoid warnings in Emacs27
+  (package-initialize))
 
 ;; Setup `use-package'
 (unless (package-installed-p 'use-package)

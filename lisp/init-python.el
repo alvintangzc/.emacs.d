@@ -35,6 +35,9 @@
   (require 'init-custom))
 
 ;; Python Mode
+;; Install:
+;;   pip install pyflakes
+;;   pip install autopep8
 (use-package python
   :ensure nil
   :defines gud-pdb-command-name pdb-path
@@ -56,6 +59,9 @@
      (list (gud-query-cmdline
             pdb-path
             (file-name-nondirectory buffer-file-name)))))
+
+  ;; Live Coding in Python
+  (use-package live-py-mode)
 
   ;; Autopep8
   (use-package py-autopep8

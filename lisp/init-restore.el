@@ -79,7 +79,7 @@
            (emacs-startup . toggle-frame-maximized))
     :init (setq inhibit-startup-screen t)
     :config
-    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;my
     (setq dashboard-banner-logo-title "Welcome to Alvintang's Emacs")
     (setq dashboard-startup-banner (if centaur-logo centaur-logo 'official))
     (setq dashboard-items '((recents  . 10)
