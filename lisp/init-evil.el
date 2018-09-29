@@ -27,6 +27,7 @@
         (evil-leader/set-key "kb" 'ido-kill-buffer)
 		; paste mode
         (evil-leader/set-key "pm" 'display-line-numbers-mode)
+		(evil-leader/set-key "ee" 'iedit-mode)
         ;; highlight
         (evil-leader/set-key "mk" 'symbol-overlay-put)
         (evil-leader/set-key "mn" 'symbol-overlay-jump-next)

@@ -33,7 +33,8 @@
 ;; Highlight the current line
 (use-package hl-line
   :ensure nil
-  :hook (after-init . global-hl-line-mode))
+  :hook (after-init . global-hl-line-mode)
+  :config (set-face-background 'hl-line "#3e4446"))
 
 ;; Highlight symbols
 (use-package symbol-overlay
